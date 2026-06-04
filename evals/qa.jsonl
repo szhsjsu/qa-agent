@@ -1,0 +1,14 @@
+{"id": "fact-1", "type": "fact", "question": "中信产业投资基金管理有限公司在2024年12月31日的账面价值是多少？", "expected_keywords": ["1,833,173,917.72", "1833173917"], "expected_pages": [1]}
+{"id": "fact-2", "type": "fact", "question": "Sino-Ocean Land Logistics Investment Management Limited 2025年6月30日的账面价值是多少？", "expected_keywords": ["7.16"], "expected_pages": [1]}
+{"id": "fact-3", "type": "fact", "question": "新疆股权交易中心有限公司在2024年期初的账面价值是多少？", "expected_keywords": ["24,136,358.89", "24136358"], "expected_pages": [1]}
+{"id": "fact-4", "type": "fact", "question": "CSOBOR Fund GP Limited 在 2025 年上半年减少了多少？", "expected_keywords": ["1.70", "1.7"], "expected_pages": [1]}
+{"id": "fact-5", "type": "fact", "question": "本期合计的期末账面价值是多少？", "expected_keywords": ["9,786,701,432.33", "9786701432"], "expected_pages": [1]}
+{"id": "table-1", "type": "table", "question": "CLSA Aviation Private Equity Fund II 在 2024 年的本年增加金额是多少？", "expected_keywords": ["64,171.76", "64171"], "expected_pages": [1, 2]}
+{"id": "table-2", "type": "table", "question": "Sunrise Capital Holdings V Limited 在 2024 年期初的账面价值是多少？", "expected_keywords": ["4,047,689.40", "4047689"], "expected_pages": [1]}
+{"id": "noans-1", "type": "no_answer", "question": "中信证券在 2030 年的预期净利润是多少？", "expected_answer": "REFUSE"}
+{"id": "noans-2", "type": "no_answer", "question": "文档中提到的公司董事长是谁？", "expected_answer": "REFUSE"}
+{"id": "noans-3", "type": "no_answer", "question": "中信证券今年股价是多少？", "expected_answer": "REFUSE"}
+{"id": "noans-4", "type": "no_answer", "question": "请提供新疆股权交易中心的注册地址。", "expected_answer": "REFUSE"}
+{"id": "fuzzy-1", "type": "fuzzy", "question": "新疆那家股权中心今年增加了多少账面价值？", "expected_keywords": ["896,215.89", "896215"], "expected_pages": [1]}
+{"id": "fuzzy-2", "type": "fuzzy", "question": "青岛蓝海期末多少钱？", "expected_keywords": ["60,217,169.70", "60217169"], "expected_pages": [1]}
+{"id": "ocr-1", "type": "ocr_robust", "question": "新彊股权交易中心2024年12月31日账面价值？", "expected_keywords": ["24,136,358.89", "24136358"], "expected_pages": [1]}

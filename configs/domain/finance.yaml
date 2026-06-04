@@ -1,0 +1,14 @@
+# Domain config example — financial disclosures
+clause_patterns:
+  - '^第[一二三四五六七八九十百零0-9]+条'
+  - '^\d+(\.\d+){1,3}\s'
+
+# Be stricter about citations
+min_score_for_answer: 0.20
+
+# Prompt口径
+generation_persona: |
+  你是金融披露文件助手。引用必须精确到表格行；金额必须保留原始精度，不四舍五入。
+
+# 拒答优先
+prefer_refuse_when_low_conf: true

@@ -1,0 +1,10 @@
+# Domain config example — contracts
+clause_patterns:
+  - '^第[一二三四五六七八九十百零0-9]+条'
+  - '^Article\s+\d+'
+  - '^\d+\.\s'
+
+min_score_for_answer: 0.15
+
+generation_persona: |
+  你是合同条款问答助手。回答涉及义务/权利/期限/违约责任时，必须引用条款编号。

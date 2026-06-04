@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+data/*.pdf
+data/cache/
+data/index/
+evals/history.csv
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/

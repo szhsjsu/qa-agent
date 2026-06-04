@@ -1,0 +1,39 @@
+[project]
+name = "qa-agent-homework"
+version = "0.1.0"
+description = "Scanned-PDF QA Agent with OCR + hybrid retrieval + self-check"
+requires-python = ">=3.10"
+dependencies = [
+    "pymupdf>=1.24.0",
+    "pdfplumber>=0.11.0",
+    "rapidocr-onnxruntime>=1.3.24",
+    "pillow>=10.0.0",
+    "numpy>=1.26",
+    "jieba>=0.42.1",
+    "rank-bm25>=0.2.2",
+    "sentence-transformers>=3.0.0",
+    "openai>=1.40.0",
+    "pydantic>=2.7",
+    "typer>=0.12",
+    "rich>=13.7",
+    "fastapi>=0.111",
+    "uvicorn>=0.30",
+    "structlog>=24.1",
+    "python-dotenv>=1.0",
+    "pyyaml>=6.0",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "ruff>=0.5"]
+rerank = ["FlagEmbedding>=1.2.10"]
+
+[project.scripts]
+qa = "qa_agent.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/qa_agent"]
