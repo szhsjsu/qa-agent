@@ -13,8 +13,8 @@ CLAUSE_PATTERNS = [
     re.compile(r"^\(\s*\d+\s*\)"),
 ]
 
-WINDOW_TOKENS = 480
-OVERLAP_TOKENS = 64
+WINDOW_TOKENS = 900
+OVERLAP_TOKENS = 200
 
 
 def _is_clause_start(line: str) -> bool:

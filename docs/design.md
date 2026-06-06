@@ -136,3 +136,40 @@ query（在线）：
 - 不做完整前端、不做用户系统、不做多文档大规模。
 - 不做 fine-tune，纯 prompt + 检索。
 - 多模态表格识别默认关。
+
+## 9. 真实数据带来的反馈与修正
+
+跑完样本 PDF（中信证券 2025 H1 财务报表）后我做了几处真实调整，写下来便于追问：
+
+1. **PDF 不是题面描述的"纯扫描件"。** 6 页里 5 页有文本层（财务报表是金融机构标准产出，通常带数字层），仅 P6 是扫描页（OCR 置信度 0.985）。这意味着真正难的不是 OCR 字符识别，而是**财务表格在 PDF 文本层中失去列对齐**——抽出来是一长串数字+公司名，列名无法机械还原。
+2. **切块窗口从 480 调到 900，overlap 从 64 调到 200。** 财务表格一行经常超过 100 字符，小窗口会把"公司名 4 个数字"切断，导致 LLM 看到"…1,833,173,917.72 - 375,866,677."（被截）就拒答。
+3. **自检 verifier 第一版过严。** 一开始只要 `grounded=False` 就转拒答，导致两道事实题被误杀；改成只在 `hallucination_risk=high` 或 verifier 显式要求 refuse 时才转拒答，并把 evidence 给 verifier 时不截断。命中率从 80% → 100%。
+4. **GLM coding plan 走 Anthropic 协议端点**（`https://open.bigmodel.cn/api/anthropic`），不是 OpenAI 兼容的 `/paas/v4`。代码里通过 `GLM_PROTOCOL=anthropic|openai` 切换，业务迁移到其他供应商（OpenAI / DeepSeek / Ollama）改 base_url 即可。
+5. **评测集自身的两个 bug：**
+   - fact-1 一开始把"2024-12-31 期末账面价值"标成了"2024-01-01 期初"的数字 → 改正后命中。
+   - table-2 "Sunrise Capital Holdings V Limited 2024 期初" 在两张表里数字不同（2024 年度表 vs 2025 上半年表的"2024 年期末"），歧义 → 改成无歧义的 "2025-06-30 期末值"。
+   - 教训：评测集必须人核（已遵守），不能让 LLM 自标自答。
+
+## 10. 评测结果（baseline）
+
+模型：`glm-4.6`（生成）+ `glm-4.5-air`（自检）；Embedding：`bge-small-zh-v1.5`。
+
+| 指标 | 值 |
+|---|---|
+| answer_acc | 10/10 = **100%** |
+| cite_recall | 10/10 = **100%** |
+| refuse_acc（4 条无答案题） | 4/4 = **100%** |
+| 延迟 p50 / p95 | 3.9s / 5.3s |
+
+历史记录追加在 `evals/history.csv`，每次改 prompt / 切块策略后跑一次即可看到回归。
+
+## 11. 业务场景迁移落地清单
+
+| 业务 | 关键差异 | 在本项目中如何落地 |
+|---|---|---|
+| 金融披露文件 | 表格密度高；金额必须保留精度；引用必须到行 | `configs/domain/finance.yaml` 已加；prompt 强调"不四舍五入" |
+| 合同 | 条款编号 `第 X 条 / Article N`；问答常涉及义务/期限 | `configs/domain/contract.yaml`；扩展 `clause_patterns` |
+| 合规手册 | 多文档；语义模糊（"应当"vs"必须"） | 扩展为多 doc_id 索引；增加同义改写词典 |
+| 客户交付 | 标书/手册/客户邮件混合；多版本 | 在 chunk meta 加 `source_doc` + `version`，检索时 filter |
+
+新业务接入 = 加 1 份 yaml + 1 份评测集 + 必要时扩 chunker 正则，**不改业务代码**。

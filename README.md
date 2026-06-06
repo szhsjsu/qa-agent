@@ -8,26 +8,42 @@
 
 ```bash
 # 1. 安装依赖（用 uv）
-uv venv && source .venv/bin/activate
+uv venv --python 3.10 && source .venv/bin/activate
 uv pip install -e .
 
 # 2. 配置 key
 cp .env.example .env
 # 编辑 .env，填入 GLM_API_KEY
+#   ZhipuAI coding plan → GLM_PROTOCOL=anthropic, base_url=/api/anthropic
+#   ZhipuAI 充值账户   → GLM_PROTOCOL=openai,    base_url=/api/paas/v4
 
 # 3. ingest（首次运行会下载 BGE 模型 ~400MB，OCR 模型 ~50MB）
 qa ingest data/sample.pdf
 
 # 4. 问答
-qa ask "第三条规定了什么？"
-qa ask "表格中第二行的数据是多少？"
+qa ask "中信产业投资基金管理有限公司在2024年期末的账面价值是多少？"
+qa ask "中信证券今年股价是多少？"            # 无答案 → 拒答
 
-# 5. 评测
+# 5. 评测（14 题：正文/表格/无答案/模糊/OCR 错字）
 python evals/run_eval.py
 
 # 6. (可选) 起 API
 uvicorn qa_agent.api.app:app --reload
+
+# 一键演示
+bash scripts/demo.sh
 ```
+
+## 当前评测结果（样本 PDF）
+
+| 指标 | 值 |
+|---|---|
+| 答案正确率 | **10 / 10** |
+| 引用页码命中率 | **10 / 10** |
+| 无答案拒答正确率 | **4 / 4** |
+| 延迟 p50 / p95 | 3.9s / 5.3s |
+
+完整指标历史见 `evals/history.csv`，逐题结果见 `evals/last_run.json`。
 
 ## 目录结构
 
@@ -63,4 +79,17 @@ data/          PDF（gitignored）
 
 ## 已完成 / 未完成
 
-见 [docs/design.md §8](docs/design.md)。
+**已完成：**
+- 端到端 ingest → 索引 → 检索 → 生成 → 自检 → 拒答
+- 9 个单测 + 14 道评测题 + 评测脚本与历史记录
+- CLI（`qa ingest|retrieve-cmd|ask`）+ FastAPI（`POST /ask`）
+- 两种 LLM 协议（OpenAI 兼容 / Anthropic 兼容）一键切换
+- 3 份领域 yaml 示例（金融 / 合同 / 合规）
+
+**未做（坦诚交代）：**
+- 不做多模态表格识别（设计上预留，默认关）
+- 不做完整前端，仅 CLI + API
+- 不做多文档大规模检索（评测一份 PDF）
+- 不做 reranker（pyproject 中作为 optional dep 预留 FlagEmbedding）
+
+详见 [docs/design.md §8–§11](docs/design.md)。

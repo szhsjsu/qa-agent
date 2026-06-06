@@ -93,10 +93,12 @@ def answer_question(bundle: IndexBundle, question: str) -> AnswerResult:
         )
 
     # ---- self-check ----
+    # Pass full chunk text (not truncated) so verifier can actually find the evidence.
+    # Prefer used_chunk_ids if the generator declared them; fall back to all retrieved.
+    used_results = [r for r in results if r.chunk["chunk_id"] in used_ids] or results
     evidence_text = "\n\n".join(
-        f"[p{r.chunk['page']}] {r.chunk['text'][:500]}"
-        for r in results
-        if not used_ids or r.chunk["chunk_id"] in used_ids or True
+        f"[p{r.chunk['page']} id={r.chunk['chunk_id']}]\n{r.chunk['text']}"
+        for r in used_results
     )
     verify = chat_json(
         [
@@ -110,9 +112,13 @@ def answer_question(bundle: IndexBundle, question: str) -> AnswerResult:
     )
     grounded = bool(verify.get("grounded", False))
     refuse = bool(verify.get("refuse", False))
-    risk = str(verify.get("hallucination_risk", "medium"))
+    risk = str(verify.get("hallucination_risk", "medium")).lower()
 
-    if refuse or not grounded:
+    # Only refuse on (a) verifier explicitly demanding refuse, OR (b) high hallucination risk.
+    # `grounded=False` alone is too sensitive — financial tables fragment badly and the verifier
+    # often can't trace the line even when the data is correct.
+    should_refuse = refuse or risk == "high"
+    if should_refuse:
         return AnswerResult(
             question=question,
             answer="无法从文档中找到答案",

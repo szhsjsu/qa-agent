@@ -1,0 +1,263 @@
+[
+  {
+    "id": "fact-1",
+    "type": "fact",
+    "question": "中信产业投资基金管理有限公司在2024年期末（2024年12月31日）的账面价值是多少？",
+    "expected_keywords": [
+      "1,457,307,240.28",
+      "1457307240"
+    ],
+    "expected_pages": [
+      1,
+      2
+    ],
+    "answer": "1,457,307,240.28",
+    "refused": false,
+    "hit": true,
+    "cite_ok": true,
+    "citations": [
+      {
+        "page": 1,
+        "quote": "136 中信产业投资基金管理有限公司 1,833,173,917.72 - 375,866,677.44 1,457,307,240.28"
+      }
+    ]
+  },
+  {
+    "id": "fact-2",
+    "type": "fact",
+    "question": "Sino-Ocean Land Logistics Investment Management Limited 在 2025 年 6 月 30 日的账面价值是多少？",
+    "expected_keywords": [
+      "7.16"
+    ],
+    "expected_pages": [
+      1
+    ],
+    "answer": "7.16",
+    "refused": false,
+    "hit": true,
+    "cite_ok": true,
+    "citations": [
+      {
+        "page": 1,
+        "quote": "Sino-Ocean Land Logistics Investment Management Limited 7.19 - 0.03 7.16"
+      }
+    ]
+  },
+  {
+    "id": "fact-3",
+    "type": "fact",
+    "question": "新疆股权交易中心有限公司在2024年1月1日（期初）的账面价值是多少？",
+    "expected_keywords": [
+      "24,136,358.89",
+      "24136358"
+    ],
+    "expected_pages": [
+      1,
+      2
+    ],
+    "answer": "24,136,358.89元",
+    "refused": false,
+    "hit": true,
+    "cite_ok": true,
+    "citations": [
+      {
+        "page": 1,
+        "quote": "新疆股权交易中心有限公司... 24,136,358.89"
+      }
+    ]
+  },
+  {
+    "id": "fact-4",
+    "type": "fact",
+    "question": "CSOBOR Fund GP Limited 在 2025 年上半年本期减少了多少？",
+    "expected_keywords": [
+      "1.70",
+      "1.7"
+    ],
+    "expected_pages": [
+      1
+    ],
+    "answer": "1.70",
+    "refused": false,
+    "hit": true,
+    "cite_ok": true,
+    "citations": [
+      {
+        "page": 1,
+        "quote": "CSOBOR Fund GP Limited 352.48 - 1.70 350.78"
+      }
+    ]
+  },
+  {
+    "id": "fact-5",
+    "type": "fact",
+    "question": "所有被投资单位的合计期末账面价值在 2025 年 6 月 30 日是多少？",
+    "expected_keywords": [
+      "9,786,701,432.33",
+      "9786701432"
+    ],
+    "expected_pages": [
+      1
+    ],
+    "answer": "9,786,701,432.33",
+    "refused": false,
+    "hit": true,
+    "cite_ok": true,
+    "citations": [
+      {
+        "page": 1,
+        "quote": "合计 9,607,514,080.96 449,995,947.17 270,808,595.80 9,786,701,432.33 14,965,691.15"
+      }
+    ]
+  },
+  {
+    "id": "table-1",
+    "type": "table",
+    "question": "CLSA Aviation Private Equity Fund II 在 2024 年的本年增加金额是多少？",
+    "expected_keywords": [
+      "64,171.76",
+      "64171"
+    ],
+    "expected_pages": [
+      1,
+      2
+    ],
+    "answer": "64,171.76",
+    "refused": false,
+    "hit": true,
+    "cite_ok": true,
+    "citations": [
+      {
+        "page": 2,
+        "quote": "CLSA Aviation Private Equity Fund II 374,670.81 64,171.76 - 438,842.57 -"
+      }
+    ]
+  },
+  {
+    "id": "table-2",
+    "type": "table",
+    "question": "Sunrise Capital Holdings V Limited 在 2025 年 6 月 30 日的账面价值是多少？",
+    "expected_keywords": [
+      "8,662,201.73",
+      "8662201"
+    ],
+    "expected_pages": [
+      1
+    ],
+    "answer": "8,662,201.73",
+    "refused": false,
+    "hit": true,
+    "cite_ok": true,
+    "citations": [
+      {
+        "page": 1,
+        "quote": "Sunrise Capital Holdings V Limited 4,047,689.40 5,364,712.83 750,200.50 8,662,201.73"
+      }
+    ]
+  },
+  {
+    "id": "noans-1",
+    "type": "no_answer",
+    "question": "中信证券在 2030 年的预期净利润是多少？",
+    "expected_answer": "REFUSE",
+    "ok": true,
+    "answer": "无法从文档中找到答案",
+    "refused": true
+  },
+  {
+    "id": "noans-2",
+    "type": "no_answer",
+    "question": "文档中提到的公司董事长是谁？",
+    "expected_answer": "REFUSE",
+    "ok": true,
+    "answer": "无法从文档中找到答案",
+    "refused": true
+  },
+  {
+    "id": "noans-3",
+    "type": "no_answer",
+    "question": "中信证券今年股价是多少？",
+    "expected_answer": "REFUSE",
+    "ok": true,
+    "answer": "无法从文档中找到答案",
+    "refused": true
+  },
+  {
+    "id": "noans-4",
+    "type": "no_answer",
+    "question": "请提供新疆股权交易中心的注册地址。",
+    "expected_answer": "REFUSE",
+    "ok": true,
+    "answer": "无法从文档中找到答案",
+    "refused": true
+  },
+  {
+    "id": "fuzzy-1",
+    "type": "fuzzy",
+    "question": "新疆那家股权中心今年（2024 年内）增加了多少？",
+    "expected_keywords": [
+      "896,215.89",
+      "896215"
+    ],
+    "expected_pages": [
+      1,
+      2
+    ],
+    "answer": "896,215.89",
+    "refused": false,
+    "hit": true,
+    "cite_ok": true,
+    "citations": [
+      {
+        "page": 1,
+        "quote": "新疆股权交易中心有限公司 (以下简\n称”新疆股权交易中心”) 24,136,358.89 896,215.89 152,559.06 24,880,015.72 -"
+      }
+    ]
+  },
+  {
+    "id": "fuzzy-2",
+    "type": "fuzzy",
+    "question": "青岛蓝海期末（2024年12月31日）账面价值多少？",
+    "expected_keywords": [
+      "60,217,169.70",
+      "60217169"
+    ],
+    "expected_pages": [
+      1,
+      2
+    ],
+    "answer": "60,217,169.70",
+    "refused": false,
+    "hit": true,
+    "cite_ok": true,
+    "citations": [
+      {
+        "page": 1,
+        "quote": "青岛蓝海股权交易中心有限责任公司 67,040,953.76 - 6,823,784.06 60,217,169.70"
+      }
+    ]
+  },
+  {
+    "id": "ocr-1",
+    "type": "ocr_robust",
+    "question": "新彊股权交易中心2024年1月1日账面价值？",
+    "expected_keywords": [
+      "24,136,358.89",
+      "24136358"
+    ],
+    "expected_pages": [
+      1,
+      2
+    ],
+    "answer": "24,136,358.89元",
+    "refused": false,
+    "hit": true,
+    "cite_ok": true,
+    "citations": [
+      {
+        "page": 1,
+        "quote": "新疆股权交易中心有限公司 (以下简\n称”新疆股权交易中心”) 24,136,358.89"
+      }
+    ]
+  }
+]

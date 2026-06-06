@@ -23,6 +23,7 @@ class Settings:
     glm_base_url: str = _get("GLM_BASE_URL", "https://open.bigmodel.cn/api/paas/v4")
     glm_model: str = _get("GLM_MODEL", "glm-4-plus")
     glm_verify_model: str = _get("GLM_VERIFY_MODEL", "glm-4-air")
+    glm_protocol: str = _get("GLM_PROTOCOL", "openai")  # "openai" | "anthropic"
 
     # Embedding
     embedding_model: str = _get("EMBEDDING_MODEL", "BAAI/bge-small-zh-v1.5")
