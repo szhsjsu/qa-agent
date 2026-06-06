@@ -15,7 +15,10 @@ uv pip install -e .
 cp .env.example .env
 # 编辑 .env，填入 API_KEY
 
-# 3. ingest（首次运行会下载 BGE 模型 ~400MB，OCR 模型 ~50MB）
+# 3. 放入待解析 PDF（仓库未包含 PDF）
+mkdir -p data && cp <你的扫描 PDF 路径> data/sample.pdf
+
+# 4. ingest（首次运行会下载 BGE 模型 ~400MB，OCR 模型 ~50MB）
 qa ingest data/sample.pdf
 
 # 4. 问答
