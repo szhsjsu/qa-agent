@@ -13,9 +13,7 @@ uv pip install -e .
 
 # 2. 配置 key
 cp .env.example .env
-# 编辑 .env，填入 GLM_API_KEY
-#   ZhipuAI coding plan → GLM_PROTOCOL=anthropic, base_url=/api/anthropic
-#   ZhipuAI 充值账户   → GLM_PROTOCOL=openai,    base_url=/api/paas/v4
+# 编辑 .env，填入 API_KEY
 
 # 3. ingest（首次运行会下载 BGE 模型 ~400MB，OCR 模型 ~50MB）
 qa ingest data/sample.pdf
@@ -62,7 +60,7 @@ docs/          设计文档
 data/          PDF（gitignored）
 ```
 
-## 关键设计点（一句话版本）
+## 关键设计点
 
 - **PDF 类型判别**：用 pdfplumber 抽前 2 页文本量，按页路由文本/扫描两条路径。
 - **OCR**：RapidOCR（onnx），纯 pip 无系统依赖。
@@ -86,10 +84,12 @@ data/          PDF（gitignored）
 - 两种 LLM 协议（OpenAI 兼容 / Anthropic 兼容）一键切换
 - 3 份领域 yaml 示例（金融 / 合同 / 合规）
 
-**未做（坦诚交代）：**
+**未做：**
 - 不做多模态表格识别（设计上预留，默认关）
 - 不做完整前端，仅 CLI + API
 - 不做多文档大规模检索（评测一份 PDF）
 - 不做 reranker（pyproject 中作为 optional dep 预留 FlagEmbedding）
+- 多语种
+- 离线/在线 更新策略
 
 详见 [docs/design.md §8–§11](docs/design.md)。

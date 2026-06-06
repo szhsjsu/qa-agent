@@ -28,7 +28,7 @@ class PageInfo:
     page: int
     is_scanned: bool
     text_layer_chars: int
-    ocr_avg_conf: float | None
+    ocr_conf: float | None
 
 
 def _pdfplumber_page_text(pdf_path: str, page_index: int) -> str:
@@ -103,7 +103,7 @@ def ingest_pdf(pdf_path: str | Path, out_dir: str | Path, doc_id: str | None = N
         is_scanned = chars < TEXT_LAYER_MIN_CHARS
 
         page_text = ""
-        ocr_avg_conf: float | None = None
+        ocr_conf: float | None = None
 
         # ---- 1. text-layer path ----
         if not is_scanned:
@@ -116,23 +116,23 @@ def ingest_pdf(pdf_path: str | Path, out_dir: str | Path, doc_id: str | None = N
                 ocr = get_ocr()
             img = _render_page_to_array(pdf_path, i)
             ocr_lines = ocr.run(img)
-            ocr_avg_conf = float(np.mean([ln.conf for ln in ocr_lines])) if ocr_lines else 0.0
+            ocr_conf = float(np.mean([ln.conf for ln in ocr_lines])) if ocr_lines else 0.0
             page_text = _lines_to_paragraph_text(ocr_lines)
-            log.info("page %d: OCR got %d lines, avg conf %.3f", page_no, len(ocr_lines), ocr_avg_conf)
+            log.info("page %d: OCR got %d lines, avg conf %.3f", page_no, len(ocr_lines), ocr_conf)
 
             # ---- 2b. table reconstruction from OCR ----
             grid = cluster_ocr_to_table(ocr_lines)
             if grid:
                 tbl_chunk = make_table_chunk(grid, page_no, doc_id)
-                tbl_chunk["ocr_conf"] = ocr_avg_conf
+                tbl_chunk["ocr_conf"] = ocr_conf
                 chunks.append(tbl_chunk)
                 log.info("page %d: extracted %dx%d table via OCR clustering", page_no, len(grid), len(grid[0]))
 
         # ---- 3. text chunks ----
         page_chunks = chunk_page_text(page_text, page_no, doc_id)
         for c in page_chunks:
-            if ocr_avg_conf is not None:
-                c["ocr_conf"] = ocr_avg_conf
+            if ocr_conf is not None:
+                c["ocr_conf"] = ocr_conf
         chunks.extend(page_chunks)
 
         # ---- 4. pdfplumber tables (if text-layer page) ----
@@ -142,7 +142,7 @@ def ingest_pdf(pdf_path: str | Path, out_dir: str | Path, doc_id: str | None = N
                 chunks.append(tbl_chunk)
                 log.info("page %d: extracted %dx%d table via pdfplumber", page_no, len(grid), len(grid[0]))
 
-        page_infos.append(PageInfo(page_no, is_scanned, chars, ocr_avg_conf))
+        page_infos.append(PageInfo(page_no, is_scanned, chars, ocr_conf))
 
     # write outputs
     chunks_path = out_dir / f"{doc_id}.chunks.jsonl"
